@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { jobsApi } from '../lib/api';
@@ -11,7 +12,7 @@ const categories = ['All', 'Design', 'Sales', 'Marketing', 'Finance', 'Technolog
 const locations = ['All', 'Dhaka', 'Chittagong', 'Sylhet', 'Remote'];
 const jobTypes = ['All', 'full-time', 'part-time', 'remote'];
 
-export default function JobsPage() {
+function JobsContent() {
     const searchParams = useSearchParams();
     const [jobs, setJobs] = useState<Job[]>([]);
     const [loading, setLoading] = useState(true);
@@ -57,7 +58,6 @@ export default function JobsPage() {
                     </h1>
                     <p className="text-gray-500">Find your next career at companies like HubSpot, Nike, and Dropbox</p>
 
-                    {/* Search Bar */}
                     <div className="flex flex-col sm:flex-row gap-0 bg-white shadow-md rounded-lg overflow-hidden border border-gray-200 mt-6 max-w-3xl">
                         <div className="flex items-center gap-2 flex-1 px-4 py-3 border-b sm:border-b-0 sm:border-r border-gray-200">
                             <svg className="w-5 h-5 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -69,7 +69,7 @@ export default function JobsPage() {
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                                className="w-full outline-none text-gray-700 placeholder-gray-400 text-sm bg-transparent"
+                                className="w-full outline-none text-gray-900 placeholder-gray-400 text-sm bg-transparent"
                             />
                         </div>
                         <button
@@ -88,7 +88,6 @@ export default function JobsPage() {
                     {/* Sidebar Filters */}
                     <div className="w-full md:w-64 shrink-0">
 
-                        {/* Category Filter */}
                         <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4">
                             <h3 className="font-semibold text-gray-900 mb-4">Category</h3>
                             <div className="space-y-2">
@@ -108,7 +107,6 @@ export default function JobsPage() {
                             </div>
                         </div>
 
-                        {/* Location Filter */}
                         <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4">
                             <h3 className="font-semibold text-gray-900 mb-4">Location</h3>
                             <div className="space-y-2">
@@ -128,7 +126,6 @@ export default function JobsPage() {
                             </div>
                         </div>
 
-                        {/* Job Type Filter */}
                         <div className="bg-white rounded-xl border border-gray-200 p-5">
                             <h3 className="font-semibold text-gray-900 mb-4">Job Type</h3>
                             <div className="space-y-2">
@@ -153,7 +150,6 @@ export default function JobsPage() {
                     {/* Jobs Grid */}
                     <div className="flex-1">
 
-                        {/* Results count */}
                         <div className="flex justify-between items-center mb-6">
                             <p className="text-gray-500 text-sm">
                                 Showing <span className="font-semibold text-gray-900">{jobs.length}</span> jobs
@@ -162,7 +158,6 @@ export default function JobsPage() {
                             </p>
                         </div>
 
-                        {/* Loading */}
                         {loading && (
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {[...Array(6)].map((_, i) => (
@@ -176,7 +171,6 @@ export default function JobsPage() {
                             </div>
                         )}
 
-                        {/* Jobs */}
                         {!loading && jobs.length > 0 && (
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {jobs.map((job) => (
@@ -185,7 +179,6 @@ export default function JobsPage() {
                             </div>
                         )}
 
-                        {/* Empty */}
                         {!loading && jobs.length === 0 && (
                             <div className="text-center py-20">
                                 <p className="text-5xl mb-4">🔍</p>
@@ -206,5 +199,17 @@ export default function JobsPage() {
 
             <Footer />
         </div>
+    );
+}
+
+export default function JobsPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600" />
+            </div>
+        }>
+            <JobsContent />
+        </Suspense>
     );
 }
