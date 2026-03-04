@@ -45,7 +45,7 @@ export default function Navbar() {
                             <Link href="/jobs" className="text-gray-700 hover:text-indigo-600 transition-colors font-medium">
                                 Find Jobs
                             </Link>
-                            <Link href="/" className="text-gray-700 hover:text-indigo-600 transition-colors font-medium">
+                            <Link href="/companies" className="text-gray-700 hover:text-indigo-600 transition-colors font-medium">
                                 Browse Companies
                             </Link>
                             {isAdmin && (
