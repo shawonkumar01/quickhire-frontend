@@ -1,36 +1,152 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# QuickHire Frontend
 
-## Getting Started
+A modern job board frontend built with Next.js 15, TypeScript, and Tailwind CSS.
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🔗 Backend Repository
+
+[QuickHire Backend](https://github.com/shawonkumar01/quickhire-backend)
+
+## ✨ Features
+
+- **Home Page** — Hero section, category explorer, featured jobs, latest jobs, footer
+- **Job Listings** — Search, filter by category/location/job type
+- **Job Detail** — Full job info with Apply Now modal
+- **Apply Now** — Submit application with name, email, resume link, cover note
+- **Login/Register** — JWT authentication with role-based access
+- **Admin Panel** — Create/delete jobs, view all applications
+- **Browse Companies** — View all companies with open positions
+- **Responsive Design** — Works on mobile, tablet, and desktop
+
+## 🛠️ Tech Stack
+
+- **Framework** — Next.js 15 (App Router)
+- **Language** — TypeScript
+- **Styling** — Tailwind CSS
+- **HTTP Client** — Axios
+- **Notifications** — React Hot Toast
+- **Icons** — Lucide React
+
+## 📁 Project Structure
+```
+quickhire-frontend/
+├── app/
+│   ├── components/
+│   │   ├── Navbar.tsx
+│   │   ├── HeroSection.tsx
+│   │   ├── CategorySection.tsx
+│   │   ├── BannerSection.tsx
+│   │   ├── FeaturedJobsSection.tsx
+│   │   ├── LatestJobsSection.tsx
+│   │   ├── JobCard.tsx
+│   │   └── Footer.tsx
+│   ├── jobs/
+│   │   ├── page.tsx          # Job listings with filters
+│   │   └── [id]/
+│   │       └── page.tsx      # Job detail + apply modal
+│   ├── companies/
+│   │   └── page.tsx          # Browse companies
+│   ├── login/
+│   │   └── page.tsx          # Login + register
+│   ├── admin/
+│   │   └── page.tsx          # Admin panel
+│   ├── lib/
+│   │   └── api.ts            # Axios API client
+│   ├── types/
+│   │   └── index.ts          # TypeScript interfaces
+│   ├── layout.tsx
+│   ├── page.tsx
+│   └── globals.css
+├── public/
+├── .env.local
+├── .env.example
+├── package.json
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ⚙️ Getting Started
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Prerequisites
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Node.js 18+
+- Backend server running on port 3001
 
-## Learn More
+### Installation
 
-To learn more about Next.js, take a look at the following resources:
+**1. Clone the repository**
+```bash
+git clone https://github.com/shawonkumar01/quickhire-frontend.git
+cd quickhire-frontend
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**2. Install dependencies**
+```bash
+npm install
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**3. Configure environment**
+```bash
+cp .env.example .env.local
+```
 
-## Deploy on Vercel
+Edit `.env.local`:
+```
+NEXT_PUBLIC_API_URL=http://localhost:3001/api
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**4. Run the development server**
+```bash
+npm run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Frontend runs on **http://localhost:3002**
+
+## 🔐 Authentication
+
+| Role  | Access |
+|-------|--------|
+| Guest | View jobs, apply for jobs |
+| User  | View jobs, apply for jobs |
+| Admin | All above + create/delete jobs, view applications |
+
+**Default Admin Credentials:**
+```
+Email: admin@quickhire.com
+Password: admin123
+```
+
+## 📄 Pages
+
+| Page | Route | Description |
+|------|-------|-------------|
+| Home | `/` | Landing page with hero, categories, jobs |
+| Jobs | `/jobs` | All jobs with search and filters |
+| Job Detail | `/jobs/:id` | Job info and apply now |
+| Companies | `/companies` | Browse all companies |
+| Login | `/login` | Login and register |
+| Admin | `/admin` | Admin dashboard (admin only) |
+
+## 🌐 Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `NEXT_PUBLIC_API_URL` | Backend API URL | `http://localhost:3001/api` |
+
+## 📦 Available Scripts
+```bash
+npm run dev        # Start development server (port 3002)
+npm run build      # Build for production
+npm run start      # Start production server
+npm run lint       # Run ESLint
+```
+
+## 🤝 Related
+
+- [QuickHire Backend](https://github.com/shawonkumar01/quickhire-backend) — NestJS REST API
+```
+
+---
+
+Also create `.env.example`:
+```
+NEXT_PUBLIC_API_URL=http://localhost:3001/api
